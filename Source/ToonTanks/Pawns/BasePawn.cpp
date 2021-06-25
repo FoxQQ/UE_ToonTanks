@@ -21,27 +21,26 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 
+}
+
+
+void ABasePawn::RotateTurretFunction(FVector LookAtTarget){
+
+	FVector LookAtTargetClean = FVector(LookAtTarget.X,
+										LookAtTarget.Y,
+										TurretMesh->GetComponentLocation().Z);
+
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+
+	FRotator TurretRotation = FVector(LookAtTargetClean - StartLocation).Rotation();
+	TurretMesh->SetWorldRotation(TurretRotation);
+}
+
+void ABasePawn::Fire(){
+	UE_LOG(LogTemp, Error, TEXT("FIRE!"));
 
 }
 
-// Called when the game starts or when spawned
-void ABasePawn::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void ABasePawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+void ABasePawn::HandleDestruction(){
 
 }
-
-// Called to bind functionality to input
-void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
